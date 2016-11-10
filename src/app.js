@@ -9,6 +9,7 @@ class App extends Component {
     return (
       <div className={styles.wrapper}>
         wot is life doe
+        <h1>env: {__NODE_ENV__}</h1>
       </div>
     );
   }
