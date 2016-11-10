@@ -76,4 +76,15 @@ config.module.loaders.push({
   loader: 'style!css'
 });
 
+config.resolve.root = [src, modules];
+config.resolve.alias = {
+  'css': join(src, 'styles'),
+  'containers': join(src, 'containers'),
+  'components': join(src, 'components'),
+  'routes': join(src, 'routes'),
+  'actions': join(src, 'actions'),
+  'utils': join(src, 'utils'),
+  'reducers': join(src, 'reducers'),
+};
+
 module.exports = config;
