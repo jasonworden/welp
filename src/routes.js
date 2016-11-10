@@ -9,5 +9,6 @@ const Home = () => {
 export default (
   <Route path="/" component={App}>
     <IndexRoute component={Home} />
+    <Redirect from="*" to="/" />
   </Route>
 )
