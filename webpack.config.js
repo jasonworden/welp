@@ -1,3 +1,5 @@
+require('babel-register');
+
 const webpack = require('webpack');
 const getConfig = require('hjs-webpack');
 const fs = require('fs');
@@ -5,13 +7,16 @@ const path = require('path'),
   join = path.join,
   resolve = path.resolve;
 
+const NODE_ENV = process.env.NODE_ENV;
+const dotenv = require('dotenv');
+
+const isDev   = NODE_ENV === 'development';
+const isTest  = NODE_ENV === 'test';
+
 const root = resolve(__dirname);
 const src = join(root, 'src');
 const modules = join(root, 'node_modules');
 const dest = join(root, 'dist');
-
-const NODE_ENV = process.env.NODE_ENV;
-const dotenv = require('dotenv');
 
 const dotEnvVars = dotenv.config();
 const environmentEnv = dotenv.config({
@@ -28,8 +33,6 @@ const defines = Object.keys(envVariables)
   }, {
     __NODE_ENV__: JSON.stringify(NODE_ENV)
   });
-
-const isDev = NODE_ENV === 'development';
 
 var config = getConfig({
   isDev: isDev,
@@ -86,5 +89,24 @@ config.resolve.alias = {
   'utils': join(src, 'utils'),
   'reducers': join(src, 'reducers'),
 };
+
+if (isTest) {
+  config.externals = {
+    'react/addons': true,
+    'react/lib/ReactContext': true,
+    'react/lib/ExecutionEnvironment': true
+  }
+
+  config.plugins = config.plugins.filter(p => {
+    const name = p.constructor.toString();
+    const fnName = name.match(/^function (.*)\((.*\))/)
+
+    const idx = [
+      'DedupePlugin',
+      'UglifyJsPlugin'
+    ].indexOf(fnName[1]);
+    return idx < 0;
+  })
+}
 
 module.exports = config;
