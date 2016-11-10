@@ -1,10 +1,13 @@
-import React, { Component } from 'react';
-import ReactDom from 'react-dom';
+import React, {Component} from 'react';
+import ReactDOM from 'react-dom';
+import {browserHistory, Router} from 'react-router';
 
 import 'font-awesome/css/font-awesome.css';
 import './app.css';
 
-import App from 'containers/App/App';
+import routes from './routes';
 
-const mountNode = document.querySelector('#root');
-ReactDom.render(<App />, mountNode);
+ReactDOM.render(
+  <Router history={browserHistory} routes={routes} />,
+  document.querySelector('#root')
+);
