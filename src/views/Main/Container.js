@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import Map, { GoogleApiWrapper } from 'google-maps-react';
 import { searchNearby } from 'utils/googleApiHelpers';
 
+import Header from 'components/Header/Header';
+
 export class Container extends Component {
   constructor(props) {
     super(props);
@@ -35,7 +37,7 @@ export class Container extends Component {
     //wrapping Container in GoogleApiWrapper gives it a prop of google
     return (
       <div>
-        <h1>Demo</h1>
+        <Header />
         <Map
           visible={false}
           onReady={this.onReady.bind(this)}
