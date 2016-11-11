@@ -1,10 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router';
 
+import styles from './styles.module.css';
+
 export const Header = (props) => (
-  <header>
+  <header className={styles.topbar}>
     <Link to="/"><h1>Welp</h1></Link>
-    <hr />
+    <section>J$ON Payload</section>
   </header>
 )
 
