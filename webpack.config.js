@@ -18,6 +18,7 @@ const src = join(root, 'src');
 const modules = join(root, 'node_modules');
 const dest = join(root, 'dist');
 
+// dotenv.load();
 const dotEnvVars = dotenv.config();
 const environmentEnv = dotenv.config({
   path: join(root, 'config', `${NODE_ENV}.config.js`),
@@ -106,7 +107,7 @@ if (isTest) {
       'UglifyJsPlugin'
     ].indexOf(fnName[1]);
     return idx < 0;
-  })
+  });
 }
 
 module.exports = config;
