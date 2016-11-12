@@ -4,6 +4,7 @@ import { searchNearby } from 'utils/googleApiHelpers';
 
 import styles from './styles.module.css';
 import Header from 'components/Header/Header';
+import Sidebar from 'components/Sidebar/Sidebar';
 
 export class Container extends Component {
   constructor(props) {
@@ -38,12 +39,17 @@ export class Container extends Component {
     //wrapping Container in GoogleApiWrapper gives it a prop of google
     return (
       <div>
-        <Header />
         <Map
           className={styles.wrapper}
           visible={false}
           onReady={this.onReady.bind(this)}
-          google={this.props.google} />
+          google={this.props.google}
+        >
+          <Header />
+          <Sidebar
+            title={'Restaurants'}
+            places={this.state.places} />
+        </Map>
 
         <div className={styles.content}>
           {this.state.places.map(place => {
